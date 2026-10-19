@@ -13,19 +13,18 @@ public:
             return false;
         }
 
-        map<ListNode * ,bool>visited;
+        ListNode* slow=head;
+        ListNode* fast=head;
 
-        ListNode* temp=head;
-
-        while(temp!=NULL){
-            if(visited[temp]==true){
+        while(fast!=NULL &&  fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(slow==fast){
                 return true;
             }
 
-            visited[temp]=true;
-            temp=temp->next;
+  
         }
-    return false;
-        
+          return false;
     }
 };
