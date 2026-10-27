@@ -15,28 +15,31 @@ public:
         if (head == NULL || left == right) {
             return head;
         }
+    ListNode* dummy=new ListNode(0);
+    ListNode* leftPre=dummy;
+    ListNode* curr=head;
+    dummy->next=head;
 
-        ListNode* dummy = new ListNode(0);
-        dummy->next = head;
+    for(int i=0;i<left-1;i++){
+        curr=curr->next;
+        leftPre=leftPre->next;
+    }
+    ListNode* sublistHead=curr;
+    ListNode* prev=NULL;
 
-        ListNode* prev = dummy;
+    for(int i=0;i<right-left+1;i++){
+        ListNode* forward=curr->next;
+        
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
 
-        // Move prev to the node just before position left
-        for (int i = 1; i < left; i++) {
-            prev = prev->next;
-        }
+    }
 
-        ListNode* curr = prev->next;
+    leftPre->next=prev;
+    sublistHead->next=curr;
 
-        // Reverse the sublist
-        for (int i = 0; i < right - left; i++) {
-            ListNode* forward = curr->next;
-
-            curr->next = forward->next;
-            forward->next = prev->next;
-            prev->next = forward;
-        }
-
-        return dummy->next;
+    
+return dummy->next;
     }
 };
